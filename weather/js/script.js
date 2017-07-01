@@ -50,7 +50,7 @@
 					var dayOfWeek = moment().add(i, 'day').locale("ru").format('dddd');
 					var dayMonth = moment().add(i, 'day').format('DD') + ' ' + months[moment().add(i, 'day').format('M')-1];
 					var dayWeatherIcon = elem.weather[0].icon;
-					console.log(error);
+					
 					var mornTemp = Math.floor(elem.temp.morn);
 					var dayTemp = Math.floor(elem.temp.day);
 					var evenTemp = Math.floor(elem.temp.eve);
