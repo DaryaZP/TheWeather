@@ -29,7 +29,7 @@
 	var city = $('#city');
 	var dateinput = $('#datetimepicker input');
 	var datepicker = $('#datetimepicker');
-	var error = 0;
+	
 	$('.btn-send').click(function() {
 		if (city.val() != '' && dateinput.val() != '') {
 			city.removeClass('warning');
@@ -45,8 +45,7 @@
 				 
 				var months = [ 'Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря' ];
 				for (var i = 0; i < 5; i ++) {
-					error = error + 2;
-					//console.log(response.list);
+					
 					var elem = response.list[i];
 					var dayOfWeek = moment().add(i, 'day').locale("ru").format('dddd');
 					var dayMonth = moment().add(i, 'day').format('DD') + ' ' + months[moment().add(i, 'day').format('M')-1];
