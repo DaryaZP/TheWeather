@@ -29,6 +29,7 @@
 	var city = $('#city');
 	var dateinput = $('#datetimepicker input');
 	var datepicker = $('#datetimepicker');
+	var error = 0;
 	$('.btn-send').click(function() {
 		if (city.val() != '' && dateinput.val() != '') {
 			city.removeClass('warning');
@@ -41,14 +42,16 @@
 				$('.bold').removeClass('bold');
 				city.val('');
 				mapSettings(response.city.coord.lat, response.city.coord.lon);
-
+				 
 				var months = [ 'Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря' ];
 				for (var i = 0; i < 5; i ++) {
+					error = error + 2;
+					//console.log(response.list);
 					var elem = response.list[i];
 					var dayOfWeek = moment().add(i, 'day').locale("ru").format('dddd');
 					var dayMonth = moment().add(i, 'day').format('DD') + ' ' + months[moment().add(i, 'day').format('M')-1];
 					var dayWeatherIcon = elem.weather[0].icon;
-
+					console.log(error);
 					var mornTemp = Math.floor(elem.temp.morn);
 					var dayTemp = Math.floor(elem.temp.day);
 					var evenTemp = Math.floor(elem.temp.eve);
@@ -67,7 +70,7 @@
 					$($('.even-temp')[i]).html(evenTemp + ' &deg;C');
 					$($('.night-temp')[i]).html(nightTemp + ' &deg;C');
 				}
-
+								
 				$('#weather-table').fadeIn();
 				$('#map').fadeIn();
 				datepicker.on('dp.change', function() {
@@ -84,22 +87,20 @@
 					})
 				})
 			})
+			.fail(function() {
+   			 alert( "Город не найден!" );
+  		})
 		} else {
-			if (dateinput.val() == '') {
-				dateinput.addClass('warning');
-				city.removeClass('warning');
-				alert ("Введите дату!");
-			}
 			if (city.val() == '') {
 				city.addClass('warning');
 				dateinput.removeClass('warning');
 				alert ("Введите населенный пункт!");
-			}			
-		  }		
-		  try {
-    		throw new Error("Город не найден!");
-			} catch (e) {
-   		 alert(e.name + ": " + e.message);
-			}
+			} 
+			if (dateinput.val() == '') {
+				dateinput.addClass('warning');
+				city.removeClass('warning');
+				alert ("Введите дату!");
+			}				  
+		}
 	})
 })
